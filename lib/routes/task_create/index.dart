@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_management/category/group.dart';
 import 'package:task_management/category/task.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 import 'package:task_management/utils/constants.dart';
 import 'package:task_management/widgets/custom_appbar.dart';
 import 'package:task_management/utils/global_state.dart';
@@ -22,7 +22,6 @@ class _TaskCreationState extends State<TaskCreation> {
 
   @override
   Widget build(BuildContext context) {
-    final GroupController controller = GlobalState.of(context);
     return Scaffold(
       backgroundColor: darkBlue,
       appBar: _buildAppBar(),
@@ -152,71 +151,42 @@ class _TaskCreationState extends State<TaskCreation> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom / 2,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            controller
-                .addTask(
-                  super.widget.group,
-                  Task(contentController.text, false, DateTime.now()),
-                )
-                .whenComplete(() => Navigator.of(context).pop());
-          },
-          child: Container(
-            height: 60,
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromRGBO(48, 104, 223, 1),
-                  Color.fromRGBO(41, 84, 174, 1)
-                ],
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/plus.svg",
-                  height: 15,
-                  width: 15,
-                  color: Colors.white,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "create new task".toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      letterSpacing: 0.6,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 
   CustomAppBar _buildAppBar() {
+    final GroupController controller = GlobalState.of(context);
     return CustomAppBar(
-      title: Text(
-        "Create New Task",
-        style: TextStyle(
-          fontSize: 20,
-          color: lightGrey,
-        ),
+      hideLeading: true,
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomAppBarBackButton(),
+          Text(
+            "Create New Task",
+            style: TextStyle(
+              fontSize: 23,
+              color: lightGrey,
+            ),
+          ),
+          IconButton(
+            icon: SvgPicture.asset(
+              "assets/check.svg",
+              color: Colors.white,
+              width: 18,
+              height: 18,
+            ),
+            onPressed: () {
+              controller
+                  .addTask(
+                    super.widget.group,
+                    Task(contentController.text, false, DateTime.now()),
+                  )
+                  .whenComplete(() => Navigator.of(context).pop());
+            },
+          ),
+        ],
       ),
     );
   }

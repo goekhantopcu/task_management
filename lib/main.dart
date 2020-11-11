@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:task_management/database/database.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 import 'package:task_management/routes/home/index.dart';
 import 'package:task_management/utils/constants.dart';
 import 'package:task_management/utils/global_state.dart';

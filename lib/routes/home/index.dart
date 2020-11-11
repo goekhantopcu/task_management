@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 import 'package:task_management/routes/calendar/index.dart';
 import 'package:task_management/routes/groups/group_card.dart';
 import 'package:task_management/routes/groups/index.dart';
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 
@@ -113,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     )
                     .toList(),
+                physics: BouncingScrollPhysics(),
               ),
             ),
           ),

@@ -4,7 +4,7 @@ import 'package:task_management/utils/hexcolor.dart';
 
 class Group {
   String name;
-  int categoryId;
+  int groupId;
   Color displayColor;
   final List<Task> tasks = [];
 
@@ -15,14 +15,14 @@ class Group {
       'name': name,
       'display_color': displayColor.toHex(),
     };
-    if (categoryId != null) {
-      map['category_id'] = categoryId;
+    if (groupId != null) {
+      map['category_id'] = groupId;
     }
     return map;
   }
 
   Group.fromMap(Map<String, dynamic> map) {
-    this.categoryId = map['category_id'];
+    this.groupId = map['category_id'];
     this.name = map['name'];
     this.displayColor = HexColor.fromHex(map['display_color']);
   }
@@ -60,8 +60,8 @@ class Group {
     return this.tasks.where((element) => !element.completed).toList();
   }
 
-  bool operator ==(o) => o is Group && o.categoryId == categoryId;
+  bool operator ==(o) => o is Group && o.groupId == groupId;
 
   @override
-  int get hashCode => categoryId.hashCode ^ name.hashCode;
+  int get hashCode => groupId.hashCode ^ name.hashCode;
 }

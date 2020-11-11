@@ -4,7 +4,7 @@ class Task {
   int taskId;
   String title;
   bool completed;
-  Group category;
+  Group group;
   DateTime expireDate;
 
   Task(this.title, this.completed, this.expireDate);
@@ -26,7 +26,7 @@ class Task {
     this.title = map['title'];
     this.completed = map['completed'] == 1 ? true : false;
     this.expireDate = DateTime.fromMillisecondsSinceEpoch(map['expire_date']);
-    this.category = category;
+    this.group = category;
   }
 
   bool operator ==(o) => o is Task && o.taskId == taskId;

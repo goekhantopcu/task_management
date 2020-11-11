@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:task_management/category/group.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 import 'package:task_management/routes/home/project_card.dart';
 import 'package:task_management/utils/global_state.dart';
 

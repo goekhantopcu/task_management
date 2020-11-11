@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_management/category/task.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 import 'package:task_management/utils/global_state.dart';
 import 'package:task_management/widgets/task_card.dart';
 import 'package:task_management/utils/utils.dart';

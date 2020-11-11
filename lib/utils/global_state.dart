@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:task_management/notifier/group_notifier.dart';
+import 'package:task_management/notifier/group_controller.dart';
 
 class GlobalState extends InheritedWidget {
   final GroupController _controller;
