@@ -42,8 +42,12 @@ class GroupController extends ChangeNotifier {
     this._replaceGroup(category);
   }
 
-  Future<void> removeTask(Group category, Task task) async {
-    category.removeTask(task);
+  Future<void> removeTask(Task task) async {
+    Group group = task.category;
+    if (group == null) {
+      group = _groups.where((element) => element.tasks.contains(task)).first;
+    }
+    group.removeTask(task);
     await connector.deleteTask(task);
     this.notifyListeners();
   }

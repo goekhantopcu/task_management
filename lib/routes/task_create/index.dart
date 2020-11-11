@@ -5,13 +5,13 @@ import 'package:task_management/category/group.dart';
 import 'package:task_management/category/task.dart';
 import 'package:task_management/notifier/group_notifier.dart';
 import 'package:task_management/utils/constants.dart';
-import 'package:task_management/utils/custom_appbar.dart';
+import 'package:task_management/widgets/custom_appbar.dart';
 import 'package:task_management/utils/global_state.dart';
 
 class TaskCreation extends StatefulWidget {
-  final Group category;
+  final Group group;
 
-  const TaskCreation({Key key, this.category}) : super(key: key);
+  const TaskCreation({Key key, this.group}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TaskCreationState();
@@ -25,15 +25,7 @@ class _TaskCreationState extends State<TaskCreation> {
     final GroupController controller = GlobalState.of(context);
     return Scaffold(
       backgroundColor: darkBlue,
-      appBar: CustomAppBar(
-        title: Text(
-          "Create New Task",
-          style: TextStyle(
-            fontSize: 20,
-            color: lightGrey,
-          ),
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         color: Colors.transparent,
@@ -169,7 +161,7 @@ class _TaskCreationState extends State<TaskCreation> {
           onTap: () {
             controller
                 .addTask(
-                  super.widget.category,
+                  super.widget.group,
                   Task(contentController.text, false, DateTime.now()),
                 )
                 .whenComplete(() => Navigator.of(context).pop());
@@ -212,6 +204,18 @@ class _TaskCreationState extends State<TaskCreation> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  CustomAppBar _buildAppBar() {
+    return CustomAppBar(
+      title: Text(
+        "Create New Task",
+        style: TextStyle(
+          fontSize: 20,
+          color: lightGrey,
         ),
       ),
     );

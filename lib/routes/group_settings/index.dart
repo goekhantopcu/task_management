@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_management/category/group.dart';
 import 'package:task_management/notifier/group_notifier.dart';
 import 'package:task_management/utils/constants.dart';
-import 'package:task_management/utils/custom_appbar.dart';
+import 'package:task_management/widgets/custom_appbar.dart';
 import 'package:task_management/utils/global_state.dart';
 
 // ignore: must_be_immutable
@@ -14,7 +14,7 @@ class GroupSettings extends StatefulWidget {
 
   GroupSettings.empty();
 
-  GroupSettings.withCategory(this.group);
+  GroupSettings.withGroup(this.group);
 
   @override
   State<StatefulWidget> createState() => _GroupSettingsState();
@@ -36,7 +36,6 @@ class _GroupSettingsState extends State<GroupSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final GroupController controller = GlobalState.of(context);
     return Scaffold(
       backgroundColor: darkBlue,
       appBar: _buildAppBar(),
@@ -205,67 +204,48 @@ class _GroupSettingsState extends State<GroupSettings> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom * 0.5,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            if (super.widget.group == null) {
-              super.widget.group = Group(
-                nameController.text,
-                _selectedColor,
-              );
-              controller.addGroup(super.widget.group);
-            } else {
-              super.widget.group.name = nameController.text;
-              super.widget.group.displayColor = _selectedColor;
-              controller.updateGroup(super.widget.group);
-            }
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromRGBO(48, 104, 223, 1),
-                  Color.fromRGBO(41, 84, 174, 1)
-                ],
-              ),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                (widget.group == null ? "create" : "save").toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  letterSpacing: 0.6,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 
   CustomAppBar _buildAppBar() {
+    final GroupController controller = GlobalState.of(context);
     return CustomAppBar(
-      title: Text(
-        "Group Settings",
-        style: TextStyle(
-          fontSize: 20,
-          color: lightGrey,
-        ),
+      hideLeading: true,
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomAppBarBackButton(),
+          Text(
+            "Group " + (super.widget.group != null ? "Settings" : "Creation"),
+            style: TextStyle(
+              fontSize: 23,
+              color: lightGrey,
+            ),
+          ),
+          IconButton(
+            icon: SvgPicture.asset(
+              "assets/check.svg",
+              color: Colors.white,
+              width: 18,
+              height: 18,
+            ),
+            onPressed: () {
+              if (super.widget.group == null) {
+                super.widget.group = Group(
+                  nameController.text,
+                  _selectedColor,
+                );
+                controller.addGroup(super.widget.group);
+              } else {
+                super.widget.group.name = nameController.text;
+                super.widget.group.displayColor = _selectedColor;
+                controller.updateGroup(super.widget.group);
+              }
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
     );
   }

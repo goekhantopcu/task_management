@@ -77,22 +77,22 @@ class GroupCard extends StatelessWidget {
               ),
             ),
             if (editable)
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) =>
-                          GroupSettings.withCategory(category),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(top: 15),
-                  child: Icon(
+              Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: IconButton(
+                  alignment: Alignment.topRight,
+                  icon: Icon(
                     Icons.edit,
                     size: 23,
                     color: Colors.grey.shade800,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => GroupSettings.withGroup(category),
+                      ),
+                    );
+                  },
                 ),
               ),
           ],
